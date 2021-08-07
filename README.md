@@ -6,7 +6,7 @@
 3. Run `pip install -r requirements.txt` if you don't have Django installed. Skip this step otherwise.
 4. Run `python manage.py migrate` to apply database migrations.
 5. Run `python manage.py createsuperuser` to create a super user 🦸.
-6. Run `python manege.py runserver`. If everything is ok you should see in your terminal window something written like:
+6. Run `python manage.py runserver`. If everything is ok you should see in your terminal window something written like:
 
 ```
 System check identified no issues (0 silenced).
