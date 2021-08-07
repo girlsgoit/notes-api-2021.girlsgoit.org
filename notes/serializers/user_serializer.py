@@ -1,8 +1,8 @@
 from rest_framework.serializers import ModelSerializer
-from django.contrib.auth.models import User
+from .models import GGITUser
 
 
 class UserSerializer(ModelSerializer):
     class Meta:
-        model = User
+        model = GGITUser
         exclude = ['password', 'is_superuser', 'last_login']
