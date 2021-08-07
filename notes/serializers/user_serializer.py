@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import GGITUser
+from ..models import GGITUser
 
 
 class UserSerializer(ModelSerializer):
