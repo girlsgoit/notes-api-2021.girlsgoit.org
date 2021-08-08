@@ -7,4 +7,5 @@ urlpatterns = [
     path('user/me', user_views.user_me, name='user_me'),
     path('notes', note_views.post_note, name='post_note'),
     path('user/is-unique/', user_views.is_unique, name='is_unique'),
+    path('user/<int:user_id>/', user_views.user_detail, name='user_detail'),
 ]
