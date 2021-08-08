@@ -22,3 +22,6 @@ def user_me(request):
     user_data = request.user
     serialised_user_me = UserSerializer(user_data)
     return Response(serialised_user_me.data)
+
+
+p = 5
