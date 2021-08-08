@@ -1,6 +1,6 @@
 from ..models import GGITUser
 from rest_framework.decorators import api_view, permission_classes
-from ..user_serializer import UserSerializer
+#from ..user_serializer import UserSerializer
 from rest_framework.response import Response
 from notes.serializers import user_serializer
 from notes.models import GGITUser
@@ -24,7 +24,7 @@ def is_unique(request):
             return Response(status = 400)
         else:  
             return Response(status = 200)
-            
+
 @api_view(['GET'])
 @permission_classes(['IsAuthenticated'])
 def user_me(request):
