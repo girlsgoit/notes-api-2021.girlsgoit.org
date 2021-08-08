@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from note_element_serializer import NoteElementSerializer
+from notes.serializers.note_element_serializer import NoteElementSerializer
 from ..models import Note, NoteElement
 
 

@@ -1,4 +1,4 @@
-from notes.views.models import NoteElement
+from notes.models import NoteElement
 from rest_framework.serializers import  ModelSerializer
 
 class NoteElementSerializer(ModelSerializer):
