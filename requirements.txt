@@ -6,7 +6,7 @@ pytz==2021.1
 psycopg2-binary==2.8.5
 
 # swagger docs
-drf-yasg==1.17.1
+drf-yasg==1.20.0
 
 # static files
 whitenoise==5.2.0
