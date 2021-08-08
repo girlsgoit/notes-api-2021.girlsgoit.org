@@ -2,6 +2,24 @@ from notes.models import GGITUser
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from notes.serializers import user_serializer
+from django.shortcuts import get_object_or_404
+from rest_framework import status
+
+@api_view(["GET","PUT"])
+@permission_classes(['IsAuthenticated'])
+def user_detail(request,user_id):
+   user = get_object_or_404(GGITUser, pk=user_id)
+   if request.method == "GET":
+      serialized_user = UserSerializer(user)
+      return Response(serialized_user.data)
+   elif request.method == 'PUT':
+      request_data = request.data
+      serialized_user = UserSerializer(user, request_data)
+      if serialized_user.is_valid():
+         serialized_user.save()
+         return Response(serialized_user.data)
+      else:
+         return Response(serialized_user.errors)
 
 
 @api_view(["POST"])
