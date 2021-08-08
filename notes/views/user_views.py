@@ -10,11 +10,11 @@ from rest_framework import status
 def user_detail(request,user_id):
    user = get_object_or_404(GGITUser, pk=user_id)
    if request.method == "GET":
-      serialized_user = UserSerializer(user)
+      serialized_user = user_serializer.UserSerializer(user)
       return Response(serialized_user.data)
    elif request.method == 'PUT':
       request_data = request.data
-      serialized_user = UserSerializer(user, request_data)
+      serialized_user = user_serializer.UserSerializer(user, request_data)
       if serialized_user.is_valid():
          serialized_user.save()
          return Response(serialized_user.data)
