@@ -1,9 +1,7 @@
-from ..models import GGITUser
+from notes.models import GGITUser
 from rest_framework.decorators import api_view, permission_classes
-#from ..user_serializer import UserSerializer
 from rest_framework.response import Response
 from notes.serializers import user_serializer
-from notes.models import GGITUser
 
 
 @api_view(["POST"])
@@ -29,5 +27,5 @@ def is_unique(request):
 @permission_classes(['IsAuthenticated'])
 def user_me(request):
     user_data = request.user
-    serialised_user_me = UserSerializer(user_data)
+    serialised_user_me = user_serializer.UserSerializer(user_data)
     return Response(serialised_user_me.data)
