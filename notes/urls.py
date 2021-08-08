@@ -8,4 +8,5 @@ urlpatterns = [
     path('notes', note_views.post_note, name='post_note'),
     path('user/is-unique/', user_views.is_unique, name='is_unique'),
     path('user/<int:user_id>/', user_views.user_detail, name='user_detail'),
+    path('notes/<int:note_id>/ ',note_views.note_details,name='note_details'),
 ]
