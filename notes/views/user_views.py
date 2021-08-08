@@ -47,3 +47,13 @@ def user_me(request):
     user_data = request.user
     serialised_user_me = user_serializer.UserSerializer(user_data)
     return Response(serialised_user_me.data)
+
+@api_view(['GET'])
+#@permission_classes(['IsAuthenticated']) 
+def all_users(request):
+    all_users = GGITUser.objects.all()
+    serialized_all_users = user_serializer.UserSerializer(all_users, many=True)
+    print(all_users)
+    return Response(serialized_all_users.data)
+    
+
