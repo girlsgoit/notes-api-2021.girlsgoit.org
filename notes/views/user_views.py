@@ -13,6 +13,7 @@ def user_detail(request,user_id):
       return Response(serialized_user.data)
 
 
+@api_view(["POST"])
 def register(request):
     if request.method == "POST":
         print(request.data)
