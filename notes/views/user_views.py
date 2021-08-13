@@ -24,12 +24,15 @@ def user_detail(request,user_id):
 
 @api_view(["POST"])
 def register(request):
-    if request.method == "POST":
-        print(request.data)
-        serializer = user_serializer.UserSerializer(data = request.data)
-        if serializer.is_valid():
-            serializer.save()
-        return Response()
+    password = request.data['password']
+    register_serialized = user_serializer.UserSerializer(data=request.data)
+    if register_serialized.is_valid():
+        user_instance = register_serialized.save()
+        user_instance.set_password(password)
+        user_instance.save()
+        return Response(register_serialized.data, status = 201)
+    else:
+        return Response(register_serialized.errors, status= 406)
 
 
 @api_view(["POST"])
