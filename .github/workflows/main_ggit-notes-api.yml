@@ -59,4 +59,4 @@ jobs:
         with:
           app-name: 'ggit-notes-api'
           slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_bf8bce50756d489989edf2ce156d7620 }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_694ef19ba02142859e500b00e1fba943 }}
