@@ -53,7 +53,10 @@ def register(request):
     else:
         return Response(register_serialized.errors, status=406)
 
-
+@swagger_auto_schema(
+    method='post', operation_description="Check if the user is unique.",
+    responses={201: GGITUser() },
+)
 @api_view(["POST"])
 def is_unique(request):
     if request.method == "POST":
