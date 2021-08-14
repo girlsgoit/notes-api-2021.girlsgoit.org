@@ -8,6 +8,9 @@ from notes.serializers import user_serializer
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 
+
+
+
 @api_view(["GET","PUT"])
 @permission_classes(['IsAuthenticated'])
 def user_detail(request,user_id):
@@ -68,6 +71,10 @@ def user_me(request):
     serialised_user_me = user_serializer.UserSerializer(user_data)
     return Response(serialised_user_me.data)
 
+@swagger_auto_schema(
+    method='get', operation_description="Get the list of users.",
+    responses={200: user_serializer.UserSerializer()},
+)
 @api_view(['GET'])
 #@permission_classes(['IsAuthenticated'])
 def all_users(request):
