@@ -76,6 +76,10 @@ def user_me(request):
     return Response(serialised_user_me.data)
 
 
+@swagger_auto_schema(
+    method='get', operation_description="Get the list of users.",
+    responses={200: user_serializer.UserSerializer()},
+)
 @api_view(['GET'])
 # @permission_classes(['IsAuthenticated'])
 def all_users(request):
