@@ -55,11 +55,14 @@ def notes(request):
     method='delete', operation_description="Delete a note",
     responses={200: {}},
 )
+@swagger_auto_schema(
+    method='put', operation_description="Update note.",
+    responses={200: note_serializer.NoteSerializer()},
+)
 @api_view(['GET', 'PUT', 'DELETE'])
 # @permission_classes(['IsAuthenticated'])
 def note_details(request, note_id):
-    # note=get_object_or_404(Note,pk=note_id)
-    note = Note.objects.all()
+    note = get_object_or_404(Note, pk=note_id)
 
     serialized_note = note_serializer.NoteSerializer(note)
     if request.method == "GET":
