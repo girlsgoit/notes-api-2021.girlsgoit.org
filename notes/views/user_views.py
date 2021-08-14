@@ -1,3 +1,5 @@
+from drf_yasg.utils import swagger_auto_schema
+
 from notes.models import GGITUser
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -21,7 +23,10 @@ def user_detail(request,user_id):
       else:
          return Response(serialized_user.errors)
 
-
+@swagger_auto_schema(
+    method='post', operation_description="Create a new note.",
+    request_body=user_serializer.UserSerializer(), responses={201: user_serializer.UserSerializer()},
+)
 @api_view(["POST"])
 def register(request):
     password = request.data['password']
@@ -41,7 +46,7 @@ def is_unique(request):
         print(request.data)
         if GGITUser.objects.filter(username=request.data['username']).exists():
             return Response(status = 400)
-        else:  
+        else:
             return Response(status = 200)
 
 @api_view(['GET'])
@@ -52,11 +57,11 @@ def user_me(request):
     return Response(serialised_user_me.data)
 
 @api_view(['GET'])
-#@permission_classes(['IsAuthenticated']) 
+#@permission_classes(['IsAuthenticated'])
 def all_users(request):
     all_users = GGITUser.objects.all()
     serialized_all_users = user_serializer.UserSerializer(all_users, many=True)
     print(all_users)
     return Response(serialized_all_users.data)
-    
+
 
