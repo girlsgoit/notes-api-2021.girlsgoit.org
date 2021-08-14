@@ -17,17 +17,16 @@ from drf_yasg import openapi
 #     method='post', operation_description="Create a new note.",
 #     request_body=note_serializer.NoteSerializer(), responses={201: note_serializer.NoteSerializer()},
 # )
-
 @swagger_auto_schema(
     method='post', operation_description="Create a new note",
     request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
             "note_elements":  openapi.Schema(type=openapi.TYPE_OBJECT,
-            properties={
-                    "tag":  openapi.Schema(type=openapi.TYPE_STRING, description='tag'),
-                    "content":  openapi.Schema(type=openapi.TYPE_STRING, description='content')
-                }, required=["tag", "content"])
+                                             properties={
+                                                 "tag":  openapi.Schema(type=openapi.TYPE_STRING, description='tag'),
+                                                 "content":  openapi.Schema(type=openapi.TYPE_STRING, description='content')
+                                             }, required=["tag", "content"])
         },
         required=["note_elements"]
     ),
@@ -47,14 +46,18 @@ def notes(request):
         serializer = note_serializer.NoteSerializer(note, many=True)
         return Response(serializer.data)
 
+
 @swagger_auto_schema(
     method='get', operation_description="Get an individual note.",
     responses={200: note_serializer.NoteSerializer()},
 )
-
+@swagger_auto_schema(
+    method='delete', operation_description="Delete a note",
+    responses={200: {}},
+)
 @api_view(['GET', 'PUT', 'DELETE'])
 # @permission_classes(['IsAuthenticated'])
-def note_details(request,note_id):
+def note_details(request, note_id):
     # note=get_object_or_404(Note,pk=note_id)
     note = Note.objects.all()
 
@@ -71,5 +74,5 @@ def note_details(request,note_id):
         else:
             return Response(serialized_note.errors)
     else:
-         note.delete()
-         return Response(status = 200)
+        note.delete()
+        return Response(status=200)
