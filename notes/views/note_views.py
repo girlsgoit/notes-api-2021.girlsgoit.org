@@ -28,6 +28,10 @@ def notes(request):
         serializer = note_serializer.NoteSerializer(note, many=True)
         return Response(serializer.data)
 
+@swagger_auto_schema(
+    method='get', operation_description="Get an individual note.",
+    responses={200: note_serializer.NoteSerializer()},
+)
 
 @api_view(['GET'])
 # @permission_classes(['IsAuthenticated'])
