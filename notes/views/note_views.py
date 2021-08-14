@@ -1,18 +1,35 @@
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.decorators import api_view
-from notes.serializers import note_serializer
+from notes.serializers import note_element_serializer, note_serializer
 from rest_framework.response import Response
 from notes.models import Note
+from drf_yasg import openapi
 
 
 @swagger_auto_schema(
     method='get', operation_description="Get the list of notes.",
     responses={200: note_serializer.NoteSerializer()},
 )
+# @swagger_auto_schema(
+#     method='post', operation_description="Create a new note.",
+#     request_body=note_serializer.NoteSerializer(), responses={201: note_serializer.NoteSerializer()},
+# )
+
 @swagger_auto_schema(
-    method='post', operation_description="Create a new note.",
-    request_body=note_serializer.NoteSerializer(), responses={201: note_serializer.NoteSerializer()},
+    method='post', operation_description="Create a new note",
+    request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            "note_elements":  openapi.Schema(type=openapi.TYPE_OBJECT,
+            properties={
+                    "tag":  openapi.Schema(type=openapi.TYPE_STRING, description='tag'),
+                    "content":  openapi.Schema(type=openapi.TYPE_STRING, description='content')
+                }, required=["tag", "content"])
+        },
+        required=["note_elements"]
+    ),
+    responses={201: note_serializer.NoteSerializer()},
 )
 @api_view(['POST', 'GET'])
 def notes(request):
