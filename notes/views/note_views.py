@@ -1,8 +1,10 @@
+from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.decorators import api_view
 from notes.serializers import note_element_serializer, note_serializer
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 from notes.models import Note
 from drf_yasg import openapi
 
@@ -45,13 +47,29 @@ def notes(request):
         serializer = note_serializer.NoteSerializer(note, many=True)
         return Response(serializer.data)
 
+@swagger_auto_schema(
+    method='get', operation_description="Get an individual note.",
+    responses={200: note_serializer.NoteSerializer()},
+)
 
-@api_view(['GET'])
+@api_view(['GET', 'PUT', 'DELETE'])
 # @permission_classes(['IsAuthenticated'])
 def note_details(request,note_id):
     # note=get_object_or_404(Note,pk=note_id)
     note = Note.objects.all()
 
-    serialized_note=note_serializer.NoteSerializer(note)
+    serialized_note = note_serializer.NoteSerializer(note)
     if request.method == "GET":
         return Response(serialized_note.data)
+    elif request.method == 'PUT':
+        request_data = request.data
+        request_data['user'] = request.user.id
+        serialized_note = note_serializer.NoteSerializer(note, request_data)
+        if serialized_note.is_valid():
+            serialized_note.save()
+            return Response(serialized_note.data)
+        else:
+            return Response(serialized_note.errors)
+    else:
+         note.delete()
+         return Response(status = 200)
