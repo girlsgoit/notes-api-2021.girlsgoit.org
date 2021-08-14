@@ -1,3 +1,4 @@
+from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
 from notes.models import GGITUser
@@ -24,8 +25,19 @@ def user_detail(request,user_id):
          return Response(serialized_user.errors)
 
 @swagger_auto_schema(
-    method='post', operation_description="Create a new note.",
-    request_body=user_serializer.UserSerializer(), responses={201: user_serializer.UserSerializer()},
+    method='post', operation_description="Register a user.",
+    request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            "username": openapi.Schema(type=openapi.TYPE_STRING, description='unique username'),
+            "password": openapi.Schema(type=openapi.TYPE_STRING, description='User password'),
+            "first_name": openapi.Schema(type=openapi.TYPE_STRING, description='First Name'),
+            "last_name": openapi.Schema(type=openapi.TYPE_STRING, description='Last Name'),
+            "email": openapi.Schema(type=openapi.TYPE_STRING, description='User email'),
+        },
+        required=["username", "password"]
+    ),
+    responses={201: user_serializer.UserSerializer()},
 )
 @api_view(["POST"])
 def register(request):
