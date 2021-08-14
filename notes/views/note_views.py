@@ -52,6 +52,11 @@ def notes(request):
     responses={200: note_serializer.NoteSerializer()},
 )
 
+@swagger_auto_schema(
+    method='put', operation_description="Update note.",
+    responses={200: note_serializer.NoteSerializer()},
+)
+
 @api_view(['GET', 'PUT', 'DELETE'])
 # @permission_classes(['IsAuthenticated'])
 def note_details(request,note_id):
