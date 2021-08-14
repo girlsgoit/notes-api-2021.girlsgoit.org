@@ -60,8 +60,7 @@ def notes(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 # @permission_classes(['IsAuthenticated'])
 def note_details(request,note_id):
-    # note=get_object_or_404(Note,pk=note_id)
-    note = Note.objects.all()
+    note=get_object_or_404(Note,pk=note_id)
 
     serialized_note = note_serializer.NoteSerializer(note)
     if request.method == "GET":
