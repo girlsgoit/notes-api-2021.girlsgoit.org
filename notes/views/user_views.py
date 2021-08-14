@@ -12,6 +12,10 @@ from rest_framework import status
     method='put', operation_description="Update the user data.",
     responses={200: user_serializer.UserSerializer() },
 )
+@swagger_auto_schema(
+    method='get', operation_description="Get the user data.",
+    responses={200: user_serializer.UserSerializer() },
+)
 
 @api_view(["GET", "PUT"])
 @permission_classes(['IsAuthenticated'])
