@@ -8,6 +8,10 @@ from notes.serializers import user_serializer
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 
+@swagger_auto_schema(
+    method='put', operation_description="Update the user data.",
+    responses={200: user_serializer.UserSerializer() },
+)
 
 @api_view(["GET", "PUT"])
 @permission_classes(['IsAuthenticated'])
