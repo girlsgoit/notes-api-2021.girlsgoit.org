@@ -10,6 +10,6 @@ urlpatterns = [
     path('users/login', obtain_auth_token, name='login'),
     path('users/is-unique/', user_views.is_unique, name='is_unique'),
     path('users/<int:user_id>/', user_views.user_detail, name='user_detail'),
-    path('notes/<int:note_id>/ ', note_views.note_details, name='note_details'),
+    path('notes/<int:note_id>/', note_views.note_details, name='note_details'),
    
 ]
