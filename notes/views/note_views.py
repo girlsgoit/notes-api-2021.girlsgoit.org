@@ -48,7 +48,7 @@ def notes(request):
             serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     elif request.method == "GET":
-        note = Note.objects.all()
+        note = Note.objects.filter(user=request.user).all()
         serializer = note_serializer.NoteSerializer(note, many=True)
         return Response(serializer.data)
 
