@@ -19,7 +19,7 @@ class NoteSerializer(ModelSerializer):
         return note
 
     def update(self, instance: Note, validated_data):
-        instance.note_elements.all().delete
+        instance.note_elements.all().delete()
         note_elements = validated_data.pop('note_elements')
         for note_element in note_elements:
             NoteElement.objects.create(
